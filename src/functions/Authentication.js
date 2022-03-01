@@ -7,7 +7,6 @@ const Config = {
    passwordHash: '',
    userLevel: '',
    username: '',
-   loginToken: '',
    isLoggedIn: false
 }
 
@@ -31,6 +30,12 @@ export function setPasswordHash(passwordHash) {
    Config.passwordHash = passwordHash
 }
 
+export function doLogout() {
+   Config.passwordHash = ''
+   Config.username = ''
+   Config.isLoggedIn = false
+}
+
 export function doLogin(username, password, callback) {
    Config.passwordHash = sha256(password)
    Config.username = username
@@ -51,7 +56,6 @@ export function doLogin(username, password, callback) {
          // hooray we are logged in!
          Config.isLoggedIn = true
          Config.userLevel = data.userLevel
-         Config.loginToken = data.token
          callback(true)
       } else {
          callback(false)

@@ -1,53 +1,44 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { doLogin } from '../../functions/Authentication'
 
-export default class LoginPage extends React.Component {
-   state = {
-      username: '',
-      password: '',
-      showFailedMessage: false
-   }
+export default function LoginPage(props) {
+   const navigate = useNavigate()
 
-   handleChange = event => {
-      this.setState({
-         [event.target.name]: event.target.value
-      })
-   }
+   let [username,setUsername] = useState('')
+   let [password,setPassword] = useState('')
+   let [showFailedMessage,setShowFailedMessage] = useState(false)
 
-   doLogin = () => {
-      const _this = this
-      doLogin(_this.state.username, _this.state.password, function(success) {
+   const login = () => {
+      doLogin(username, password, function(success) {
          if(success) {
-            _this.setState({'showFailedMessage': false})
-            _this.props.doLogin(true)
+            setShowFailedMessage(false)
+            props.doLogin(true)
+            navigate('/')
          } else {
-            _this.setState({'showFailedMessage': true})
+            setShowFailedMessage(true)
          }
       })
    }
 
-   render(props) {
-      const {username,password,showFailedMessage} = this.state
+   return (
+      <main>
+         <section>
+            <h2>Log in</h2>
+         </section>
 
-      return (
-         <main>
-            <section>
-               <h2>Log in</h2>
-            </section>
-
-            <form className="login-form">
-               { showFailedMessage && <p className="text-danger">Login failed</p> }
-               <fieldset>
-                  <legend><label htmlFor="username">Username</label></legend>
-                  <input type="text" name="username" id="username" value={username} onChange={this.handleChange} />
-               </fieldset>
-               <fieldset>
-                  <legend><label htmlFor="password">Password</label></legend>
-                  <input type="password" name="password" id="password" value={password} onChange={this.handleChange} />
-               </fieldset>
-               <button type="button" onClick={this.doLogin}>Log in</button>
-            </form>
-         </main>
-      )
-   }
+         <form className="login-form">
+            { showFailedMessage && <p className="text-danger">Login failed</p> }
+            <fieldset>
+               <legend><label htmlFor="username">Username</label></legend>
+               <input type="text" name="username" id="username" value={username} onChange={({target}) => setUsername(target.value)} />
+            </fieldset>
+            <fieldset>
+               <legend><label htmlFor="password">Password</label></legend>
+               <input type="password" name="password" id="password" value={password} onChange={({target}) => setPassword(target.value)} />
+            </fieldset>
+            <button type="button" onClick={login}>Log in</button>
+         </form>
+      </main>
+   )
 }

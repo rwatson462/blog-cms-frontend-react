@@ -118,7 +118,6 @@ form {
       border-radius: 0.5rem;
       padding: 1rem;
       display: block;
-      max-width:300px;
 
       legend {
          padding: 0.25rem 0.5rem;
@@ -144,6 +143,11 @@ form {
    button {
       margin: 1rem 0;
    }
+}
+
+
+.login-form fieldset {
+   max-width:300px;
 }
 
 

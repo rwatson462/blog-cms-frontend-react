@@ -5,7 +5,7 @@ export default function ArticleListBody(props) {
       <tbody>
          { 
             props.articles.map( (article,index) => {
-               return <ArticleListRow article={article} key={index} onEditClick={props.onEditClick} />
+               return <ArticleListRow article={article} key={index} onEditClick={props.onEditClick} onDeleteClick={props.onDeleteClick} />
             })
          }
       </tbody>

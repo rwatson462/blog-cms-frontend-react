@@ -41,6 +41,14 @@ export default class ArticlesPage extends React.Component {
       this.setState({'editingArticleId': id})
    }.bind(this)
 
+   deleteArticle = function(id, deleted) {
+      const articles = this.state.articleList;
+      articles.filter( article => article.id === id ).forEach(
+         article => article.deleted = deleted
+      )
+      this.setState({'articleList': articles})
+   }.bind(this)
+
    render() {
       const {articleList, editingArticleId} = this.state
 
@@ -51,7 +59,7 @@ export default class ArticlesPage extends React.Component {
             { editingArticleId > 0 ?
                <EditArticleForm article={articleList.filter(article => article.id === editingArticleId)} />
                :
-               <ArticleTable articles={articleList} onEditClick={this.setEditArticleId} />
+               <ArticleTable articles={articleList} onEditClick={this.setEditArticleId} onDeleteClick={this.deleteArticle} />
             }
          </main>
       )

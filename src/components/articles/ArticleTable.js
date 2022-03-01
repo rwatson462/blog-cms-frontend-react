@@ -6,7 +6,7 @@ export default function ArticleTable(props) {
    return (
       <table>
          <ArticleListHeader />
-         <ArticleListBody articles={props.articles} onEditClick={props.onEditClick} />
+         <ArticleListBody articles={props.articles} onEditClick={props.onEditClick} onDeleteClick={props.onDeleteClick} />
       </table>
    )
 }

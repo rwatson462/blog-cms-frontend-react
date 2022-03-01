@@ -36,7 +36,7 @@ export default class LoginPage extends React.Component {
             </section>
 
             <form>
-               { showFailedMessage && <p className="text-danger">Login failed, motherfucker</p> }
+               { showFailedMessage && <p className="text-danger">Login failed</p> }
                <fieldset>
                   <legend><label htmlFor="username">Username</label></legend>
                   <input type="text" name="username" id="username" value={username} onChange={this.handleChange} />

@@ -42,7 +42,7 @@ export default class App extends Component {
                <img src={react_logo} alt="React logo"></img>
                CMS
             </span>
-            <header><h1>Motherfucker</h1></header>
+            <header><h1>&nbsp;</h1></header>
             {navComponent}
             {pageComponent}
          </>

@@ -15,6 +15,14 @@ export default function ArticleListRow(props) {
       props.onDeleteClick(props.article.id, false)
    }
 
+   function publishArticle() {
+      props.onPublishClick(props.article.id, true)
+   }
+
+   function unpublishArticle() {
+      props.onPublishClick(props.article.id, false)
+   }
+
    const {article} = props
 
    return (
@@ -23,11 +31,15 @@ export default function ArticleListRow(props) {
          <td>{article.url.replace('/articles/', '')}</td>
          <td>{article.published ? 'Y' : 'N'}</td>
          <td>{article.deleted ? 'Y' : 'N'}</td>
-         <td>
+         <td className="button-group">
             <button onClick={editArticle}>Edit</button>
             { article.deleted 
                ? <button onClick={undeleteArticle}>Restore</button>
                : <button onClick={deleteArticle}>Delete</button>
+            }
+            { article.published
+               ? <button onClick={unpublishArticle}>Unpublish</button>
+               : <button onClick={publishArticle}>Publish</button>
             }
          </td>
       </tr>

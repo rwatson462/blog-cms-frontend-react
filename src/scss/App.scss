@@ -18,6 +18,13 @@ h1,h2,h3,h4,h5,h6,.heading {
 h1,.heading {
    font-size: 3rem;
 }
+h2,.page-title {
+   font-size: 2.5rem;
+   margin-bottom: 2rem;
+   display: inline-block;
+   padding-right: 2rem;
+   text-decoration:underline;
+}
 
 html {
    font-size: 16px;
@@ -109,15 +116,30 @@ table,textarea {
    width: 100%;
 }
 
+table {
+   // border: 2px solid;
+   border-collapse: collapse;
+   margin: 1rem 0;
+
+   thead {
+      border-bottom: 2px solid $color-primary;
+   }
+
+   tr {
+      td,th {
+         padding: 0.25rem;
+      }
+   }
+}
+
 button {
    cursor: pointer;
    padding: 0.25rem 0.5rem;
-   border: 2px solid;
+   border: 0;
    outline: none;
    border-radius: 0.5rem;
    background-color: #444;
    color: #eee;
-   box-shadow: 2px 2px 5px black;
 
    &:hover {
       background-color: #555;
@@ -126,7 +148,6 @@ button {
 
    &:active {
       transform: translateX(2px) translateY(2px);
-      box-shadow: none;
    }
 }
 

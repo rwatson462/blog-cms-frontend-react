@@ -14,7 +14,7 @@ import FooterPage from './components/pages/FooterPage'
 import NotFoundPage from './components/pages/NotFoundPage'
 
 import ArticlesPage from './components/pages/ArticlesPage'
-import EditArticleForm from './components/articles/EditArticleForm'
+import ArticleForm from './components/articles/ArticleForm'
 
 export default class App extends Component {
    state = {
@@ -48,7 +48,8 @@ export default class App extends Component {
                      <Route path="/" element={<MainPage />} />
 
                      <Route path="/articles" element={<ArticlesPage />} />
-                     <Route path="/articles/:id/edit" element={<EditArticleForm />} />
+                     <Route path="/articles/new" element={<ArticleForm />} />
+                     <Route path="/articles/:id/edit" element={<ArticleForm />} />
 
                      <Route path="/config" element={<ConfigPage />} />
                      <Route path="/footer" element={<FooterPage />} />

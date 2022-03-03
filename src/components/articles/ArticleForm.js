@@ -10,12 +10,21 @@ export default function EditArticleForm(props) {
    // useParams always returns a string
    let params = useParams()
 
+   const [isLoading, setIsLoading] = useState(true)
    const [id, setId] = useState()
-   const [title, setTitle] = useState()
-   const [content, setContent] = useState()
-   const [url, setUrl] = useState()
+   const [title, setTitle] = useState('')
+   const [content, setContent] = useState('')
+   const [url, setUrl] = useState('')
 
-   useEffect(function onMount() {
+   useEffect(() => {
+      // if no id given, we're creating a new article.
+      if(params.id === undefined) {
+         setIsLoading(false)
+         return
+      }
+
+      // otherwise, we're editing an existing article so we need to fetch it from the server
+
       const token = buildJWT({
          'access-level': getUserLevel()
       })
@@ -35,6 +44,7 @@ export default function EditArticleForm(props) {
          setTitle(data.title)
          setContent(data.content)
          setUrl(data.url)
+         setIsLoading(false)
       }).catch(error => {
          if(error.message === 'canceled') {
             // this means the controller aborted the request
@@ -59,7 +69,7 @@ export default function EditArticleForm(props) {
       // then replace multiple dashes with a single dash
       // then remove any dashes from the end
       // e.g "blog post 123 !!!" -> "blog-post-123"
-      setUrl(value.replace(/[^a-zA-Z0-9]/g, '-').replace(/-+/g, '-').replace(/-$/, ''))
+      setUrl(value.replace(/[^a-zA-Z0-9]/g, '-').replace(/-+/g, '-').replace(/-$/, '').toLowerCase())
    }
 
    const handleContentChange = event => {
@@ -70,7 +80,6 @@ export default function EditArticleForm(props) {
    const saveArticle = () => {
       // todo implement actual saving of the article
       const article = {
-         id,
          title,
          url,
          content
@@ -80,9 +89,30 @@ export default function EditArticleForm(props) {
          'access-level': getUserLevel()
       })
 
-      // "put" is equivalent to "update"
-      Axios.put(
-         APIRootUrl+'/articles/'+params.id,
+      // if we have an id, we want to update
+      if(params.id) {
+         // "put" is equivalent to "update"
+         Axios.put(
+            APIRootUrl+'/articles/'+params.id,
+            {article},
+            {
+               headers: {
+                  'content-type': 'application/json',
+                  Authorization: 'JWT ' + token
+               }
+            }
+         ).then(
+            response => console.log(response)
+         ).catch(
+            error => console.log(error)
+         )
+         navigate('/articles')
+         return
+      }
+
+      // otherwise we want to create
+      Axios.post(
+         APIRootUrl+'/articles',
          {article},
          {
             headers: {
@@ -95,12 +125,14 @@ export default function EditArticleForm(props) {
       ).catch(
          error => console.log(error)
       )
+
+      navigate('/articles')
    }
 
    return (
       <main>
          <h2>Editing Article</h2>
-         { !id ? <p>Loading...</p> :
+         { isLoading ? <p>Loading...</p> :
             <form>
                <fieldset>
                   <legend>Title</legend>

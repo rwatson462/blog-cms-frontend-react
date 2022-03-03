@@ -1,4 +1,6 @@
 
+$color-primary: teal;
+
 @import url('https://fonts.googleapis.com/css2?family=Nunito&family=Poppins:wght@300&family=Source+Code+Pro&display=swap');
 
 * {
@@ -21,13 +23,23 @@ html {
    font-size: 16px;
 }
 
-body,button,input {
+body,button,input,textarea {
    font-family: nunito;
    font-size: 1rem;
 }
 
+a {
+   text-decoration: none;
+}
+
 code, pre, .fixed-width {
    font-family: 'source code pro';
+}
+
+blockquote {
+   border-left: 2px solid $color-primary;
+   padding: 0.5rem 0 0.5rem 0.5rem;
+   margin: 0.5rem 0;
 }
 
 #root {
@@ -71,7 +83,7 @@ code, pre, .fixed-width {
          }
 
          .active button {
-            background-color: #555;
+            background-color:  $color-primary;
          }
       }
    }
@@ -91,7 +103,7 @@ main section {
    }
 }
 
-table {
+table,textarea {
    width: 100%;
 }
 
@@ -127,7 +139,7 @@ form {
          padding: 0.25rem 0.5rem;
       }
 
-      input {
+      input,textarea {
          width: 100%;
          outline: none;
          border: 2px solid #aaa;

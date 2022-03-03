@@ -9,10 +9,12 @@ import { isLoggedIn } from './functions/Authentication'
 import Nav from './components/global/Nav'
 import MainPage from './components/pages/MainPage'
 import LoginPage from './components/pages/LoginPage'
-import ArticlesPage from './components/pages/ArticlesPage'
 import ConfigPage from './components/pages/ConfigPage'
 import FooterPage from './components/pages/FooterPage'
 import NotFoundPage from './components/pages/NotFoundPage'
+
+import ArticlesPage from './components/pages/ArticlesPage'
+import EditArticleForm from './components/articles/EditArticleForm'
 
 export default class App extends Component {
    state = {
@@ -44,9 +46,13 @@ export default class App extends Component {
                : 
                   <Routes>
                      <Route path="/" element={<MainPage />} />
+
                      <Route path="/articles" element={<ArticlesPage />} />
+                     <Route path="/articles/:id/edit" element={<EditArticleForm />} />
+
                      <Route path="/config" element={<ConfigPage />} />
                      <Route path="/footer" element={<FooterPage />} />
+
                      <Route path="*" element={<NotFoundPage />} />
                   </Routes>
             }

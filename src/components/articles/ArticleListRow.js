@@ -1,7 +1,10 @@
+import { useNavigate } from "react-router-dom"
 
 export default function ArticleListRow(props) {
+   const navigate = useNavigate()
+
    function editArticle() {
-      props.onEditClick(props.article.id)
+      navigate(`/articles/${props.article.id}/edit`)
    }
 
    function deleteArticle() {

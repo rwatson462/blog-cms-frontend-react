@@ -3,15 +3,13 @@ import React from 'react';
 import { APIRootUrl } from '../../config';
 import { buildJWT, getUserLevel } from '../../functions/Authentication';
 import ArticleTable from '../articles/ArticleTable';
-import EditArticleForm from '../articles/EditArticleForm';
 
 export default class ArticlesPage extends React.Component {
    constructor(props) {
       super(props)
 
       this.state = {
-         articleList: [],
-         editingArticleId: 0
+         articleList: []
       }
    }
 
@@ -37,10 +35,6 @@ export default class ArticlesPage extends React.Component {
       )
    }
 
-   setEditArticleId = function(id) {
-      this.setState({'editingArticleId': id})
-   }.bind(this)
-
    deleteArticle = function(id, deleted) {
       const articles = this.state.articleList;
       articles.filter( article => article.id === id ).forEach(
@@ -50,17 +44,13 @@ export default class ArticlesPage extends React.Component {
    }.bind(this)
 
    render() {
-      const {articleList, editingArticleId} = this.state
+      const {articleList} = this.state
 
       return (
          <main>
             <h2>Articles</h2>
             <p>Manage blog articles here!</p>
-            { editingArticleId > 0 ?
-               <EditArticleForm article={articleList.filter(article => article.id === editingArticleId)} />
-               :
-               <ArticleTable articles={articleList} onEditClick={this.setEditArticleId} onDeleteClick={this.deleteArticle} />
-            }
+            <ArticleTable articles={articleList} onDeleteClick={this.deleteArticle} />
          </main>
       )
    }

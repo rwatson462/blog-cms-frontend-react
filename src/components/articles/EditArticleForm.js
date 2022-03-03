@@ -75,7 +75,26 @@ export default function EditArticleForm(props) {
          url,
          content
       }
-      console.log(article)
+
+      const token = buildJWT({
+         'access-level': getUserLevel()
+      })
+
+      // "put" is equivalent to "update"
+      Axios.put(
+         APIRootUrl+'/articles/'+params.id,
+         {article},
+         {
+            headers: {
+               'content-type': 'application/json',
+               Authorization: 'JWT ' + token
+            }
+         }
+      ).then(
+         response => console.log(response)
+      ).catch(
+         error => console.log(error)
+      )
    }
 
    return (
@@ -96,7 +115,7 @@ export default function EditArticleForm(props) {
                   <blockquote>Note: you can use Markdown syntax only for formatting</blockquote>
                   <textarea rows="40" name="content" value={content} onChange={handleContentChange}></textarea>
                </fieldset>
-               <p style={{display: 'flex', gap: '1rem', justifyContent: 'flex-start'}}>
+               <p className="button-group">
                   <button type="button" onClick={saveArticle}>Save</button>
                   <button type="button" onClick={() => navigate('/articles')}>Cancel</button>
                </p>

@@ -1,10 +1,10 @@
-import React, {Component} from 'react'
+import React, {useState} from 'react'
 import react_logo from './logo.svg'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import './scss/App.scss'
 
-import { isLoggedIn } from './functions/Authentication'
+import { isLoggedIn as realIsLoggedIn } from './functions/Authentication'
 
 import Nav from './components/global/Nav'
 import MainPage from './components/pages/MainPage'
@@ -16,48 +16,43 @@ import NotFoundPage from './components/pages/NotFoundPage'
 import ArticlesPage from './components/pages/ArticlesPage'
 import ArticleForm from './components/articles/ArticleForm'
 
-export default class App extends Component {
-   state = {
-      isLoggedIn: isLoggedIn(),
-   };
+export default function App() {
 
-   doLogin = function() {
-      this.setState({isLoggedIn: true})
-   }.bind(this)
+   const [isLoggedIn, setIsLoggedIn] = useState(realIsLoggedIn())
 
-   doLogout = function() {
-      this.setState({isLoggedIn: false})
-   }.bind(this)
-
-   render() {
-      const {isLoggedIn} = this.state
-
-      return (
-         <BrowserRouter>
-            <span className="heading">
-               <img src={react_logo} alt="React logo"></img>
-               CMS
-            </span>
-            <header><h1>&nbsp;</h1></header>
-            <Nav isLoggedIn={this.state.isLoggedIn} doLogout={this.doLogout} />
-            {
-               !isLoggedIn
-               ? <LoginPage doLogin={this.doLogin} />
-               : 
-                  <Routes>
-                     <Route path="/" element={<MainPage />} />
-
-                     <Route path="/articles" element={<ArticlesPage />} />
-                     <Route path="/articles/new" element={<ArticleForm />} />
-                     <Route path="/articles/:id/edit" element={<ArticleForm />} />
-
-                     <Route path="/config" element={<ConfigPage />} />
-                     <Route path="/footer" element={<FooterPage />} />
-
-                     <Route path="*" element={<NotFoundPage />} />
-                  </Routes>
-            }
-         </BrowserRouter>
-      )
+   const doLogin = () => {
+      setIsLoggedIn(true)
    }
+
+   const doLogout = () => {
+      setIsLoggedIn(false)
+   }
+
+   return (
+      <BrowserRouter>
+         <span className="heading">
+            <img src={react_logo} alt="React logo"></img>
+            CMS
+         </span>
+         <header><h1>&nbsp;</h1></header>
+         <Nav isLoggedIn={isLoggedIn} doLogout={doLogout} />
+         {
+            !isLoggedIn
+            ? <LoginPage doLogin={doLogin} />
+            : 
+               <Routes>
+                  <Route path="/" element={<MainPage />} />
+
+                  <Route path="/articles" element={<ArticlesPage />} />
+                  <Route path="/articles/new" element={<ArticleForm />} />
+                  <Route path="/articles/:id/edit" element={<ArticleForm />} />
+
+                  <Route path="/config" element={<ConfigPage />} />
+                  <Route path="/footer" element={<FooterPage />} />
+
+                  <Route path="*" element={<NotFoundPage />} />
+               </Routes>
+         }
+      </BrowserRouter>
+   )
 }

@@ -77,7 +77,7 @@ export default function EditArticleForm(props) {
       setContent(value)
    }
 
-   const saveArticle = () => {
+   const saveArticle = async () => {
       // todo implement actual saving of the article
       const article = {
          title,
@@ -91,8 +91,7 @@ export default function EditArticleForm(props) {
 
       // if we have an id, we want to update
       if(params.id) {
-         // "put" is equivalent to "update"
-         Axios.put(
+         await Axios.post(
             APIRootUrl+'/articles/'+params.id,
             {article},
             {

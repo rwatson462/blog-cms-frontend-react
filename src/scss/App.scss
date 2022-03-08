@@ -1,7 +1,10 @@
 
 $color-primary: teal;
+$font-heading: 'Sansita Swashed';
+$font-paragraph: 'Nunito';
+$font-fixed: 'Source Code Pro';
 
-@import url('https://fonts.googleapis.com/css2?family=Nunito&family=Poppins:wght@300&family=Source+Code+Pro&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito&family=Sansita+Swashed&family=Source+Code+Pro&display=swap');
 
 * {
    margin: 0;
@@ -11,8 +14,8 @@ $color-primary: teal;
 }
 
 h1,h2,h3,h4,h5,h6,.heading {
-   font-family: poppins;
-   font-weight: 300;
+   font-family: $font-heading;
+   font-weight: 400;
 }
 
 h1,.heading {
@@ -23,7 +26,6 @@ h2,.page-title {
    margin-bottom: 2rem;
    display: inline-block;
    padding-right: 2rem;
-   text-decoration:underline;
 }
 
 html {
@@ -31,7 +33,7 @@ html {
 }
 
 body,button,input,textarea {
-   font-family: nunito;
+   font-family: $font-paragraph;
    font-size: 1rem;
 }
 
@@ -40,7 +42,7 @@ a {
 }
 
 code, pre, .fixed-width {
-   font-family: 'source code pro';
+   font-family: $font-fixed;
 }
 
 blockquote {
@@ -120,6 +122,10 @@ table {
    // border: 2px solid;
    border-collapse: collapse;
    margin: 1rem 0;
+
+   &.table-hover tr:hover td {
+      background-color: #333;
+   }
 
    thead {
       border-bottom: 2px solid $color-primary;
@@ -203,7 +209,6 @@ form {
 
 .text-danger {
    color: tomato;
-   font-weight: bold;
 }
 
 
